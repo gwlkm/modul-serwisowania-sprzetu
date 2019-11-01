@@ -1,4 +1,4 @@
-package maciejgawlik.modulserwisowaniasprzetu.device.comment;
+package maciejgawlik.modulserwisowaniasprzetu.devicecomment;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

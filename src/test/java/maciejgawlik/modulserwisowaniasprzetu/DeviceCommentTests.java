@@ -1,22 +1,19 @@
 package maciejgawlik.modulserwisowaniasprzetu;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import maciejgawlik.modulserwisowaniasprzetu.device.comment.DeviceComment;
-import maciejgawlik.modulserwisowaniasprzetu.device.comment.DeviceCommentDto;
-import maciejgawlik.modulserwisowaniasprzetu.device.comment.DeviceCommentRepository;
+import maciejgawlik.modulserwisowaniasprzetu.devicecomment.DeviceComment;
+import maciejgawlik.modulserwisowaniasprzetu.devicecomment.DeviceCommentDto;
+import maciejgawlik.modulserwisowaniasprzetu.devicecomment.DeviceCommentRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CommentTests {
+public class DeviceCommentTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -41,12 +38,12 @@ public class CommentTests {
     @Test
     public void shouldAddComment() throws Exception {
         //given
-        deviceCommentRepository.save(new DeviceComment(1L, "first comment", new Date(), new Date()));
-        deviceCommentRepository.save(new DeviceComment(2L, "second comment", new Date(), new Date()));
+        deviceCommentRepository.save(new DeviceComment(1L, "first devicecomment", new Date(), new Date()));
+        deviceCommentRepository.save(new DeviceComment(2L, "second devicecomment", new Date(), new Date()));
 
         //when
         DeviceCommentDto commentDto = new DeviceCommentDto(null,"Comment content");
-        MvcResult response = mockMvc.perform(post("/device/comment")
+        MvcResult response = mockMvc.perform(post("/device-devicecomment")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(commentDto)))
                 .andReturn();
@@ -64,11 +61,11 @@ public class CommentTests {
     @Test
     public void shouldModifyComment() throws Exception {
         //given
-        deviceCommentRepository.save(new DeviceComment(1L, "fourth comment", new Date(), new Date()));
+        deviceCommentRepository.save(new DeviceComment(1L, "fourth devicecomment", new Date(), new Date()));
 
         //when
-        DeviceCommentDto commentDto = new DeviceCommentDto(1L, "fourth comment modified");
-        MvcResult response = mockMvc.perform(put("/device/comment")
+        DeviceCommentDto commentDto = new DeviceCommentDto(1L, "fourth devicecomment modified");
+        MvcResult response = mockMvc.perform(put("/device-devicecomment")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(commentDto)))
                 .andReturn();
@@ -78,17 +75,17 @@ public class CommentTests {
 
         Optional<DeviceComment> modifiedComment = deviceCommentRepository.findById(1L);
         assertTrue(modifiedComment.isPresent());
-        assertEquals("fourth comment modified", modifiedComment.get().getContent());
+        assertEquals("fourth devicecomment modified", modifiedComment.get().getContent());
         assertNotEquals(modifiedComment.get().getCreationDate(), modifiedComment.get().getModificationDate());
     }
 
     @Test
     public void shouldDeleteComment() throws Exception {
         //given
-        deviceCommentRepository.save(new DeviceComment(1L, "comment", new Date(), new Date()));
+        deviceCommentRepository.save(new DeviceComment(1L, "device-devicecomment", new Date(), new Date()));
 
         //when
-        mockMvc.perform(delete("/device/comment/1"))
+        mockMvc.perform(delete("/device-devicecomment/1"))
 
         //then
                 .andExpect(status().isOk());

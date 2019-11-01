@@ -1,4 +1,4 @@
-package maciejgawlik.modulserwisowaniasprzetu.device.comment;
+package maciejgawlik.modulserwisowaniasprzetu.devicecomment;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

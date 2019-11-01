@@ -1,4 +1,4 @@
-package maciejgawlik.modulserwisowaniasprzetu.device.category;
+package maciejgawlik.modulserwisowaniasprzetu.devicecategory;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
