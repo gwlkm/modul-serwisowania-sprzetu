@@ -38,12 +38,12 @@ public class DeviceCommentTests {
     @Test
     public void shouldAddComment() throws Exception {
         //given
-        deviceCommentRepository.save(new DeviceComment(1L, "first devicecomment", new Date(), new Date()));
-        deviceCommentRepository.save(new DeviceComment(2L, "second devicecomment", new Date(), new Date()));
+        deviceCommentRepository.save(new DeviceComment(1L, "first comment", new Date(), new Date()));
+        deviceCommentRepository.save(new DeviceComment(2L, "second comment", new Date(), new Date()));
 
         //when
         DeviceCommentDto commentDto = new DeviceCommentDto(null,"Comment content");
-        MvcResult response = mockMvc.perform(post("/device-devicecomment")
+        MvcResult response = mockMvc.perform(post("/device-comment")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(commentDto)))
                 .andReturn();
@@ -61,11 +61,11 @@ public class DeviceCommentTests {
     @Test
     public void shouldModifyComment() throws Exception {
         //given
-        deviceCommentRepository.save(new DeviceComment(1L, "fourth devicecomment", new Date(), new Date()));
+        deviceCommentRepository.save(new DeviceComment(1L, "fourth comment", new Date(), new Date()));
 
         //when
-        DeviceCommentDto commentDto = new DeviceCommentDto(1L, "fourth devicecomment modified");
-        MvcResult response = mockMvc.perform(put("/device-devicecomment")
+        DeviceCommentDto commentDto = new DeviceCommentDto(1L, "fourth comment modified");
+        MvcResult response = mockMvc.perform(put("/device-comment")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(commentDto)))
                 .andReturn();
@@ -75,17 +75,17 @@ public class DeviceCommentTests {
 
         Optional<DeviceComment> modifiedComment = deviceCommentRepository.findById(1L);
         assertTrue(modifiedComment.isPresent());
-        assertEquals("fourth devicecomment modified", modifiedComment.get().getContent());
+        assertEquals("fourth comment modified", modifiedComment.get().getContent());
         assertNotEquals(modifiedComment.get().getCreationDate(), modifiedComment.get().getModificationDate());
     }
 
     @Test
     public void shouldDeleteComment() throws Exception {
         //given
-        deviceCommentRepository.save(new DeviceComment(1L, "device-devicecomment", new Date(), new Date()));
+        deviceCommentRepository.save(new DeviceComment(1L, "device comment", new Date(), new Date()));
 
         //when
-        mockMvc.perform(delete("/device-devicecomment/1"))
+        mockMvc.perform(delete("/device-comment/1"))
 
         //then
                 .andExpect(status().isOk());
