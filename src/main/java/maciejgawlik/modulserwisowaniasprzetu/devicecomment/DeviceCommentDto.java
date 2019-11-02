@@ -12,4 +12,6 @@ public class DeviceCommentDto implements Serializable {
     private Long id;
     @NotNull
     private String content;
+    @NotNull
+    private Long deviceId;
 }

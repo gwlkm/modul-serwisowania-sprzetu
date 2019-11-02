@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -24,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Sql(scripts = "classpath:comment-tests.sql")
 public class DeviceCommentTests {
 
     @Autowired
@@ -37,12 +39,8 @@ public class DeviceCommentTests {
 
     @Test
     public void shouldAddComment() throws Exception {
-        //given
-        deviceCommentRepository.save(new DeviceComment(1L, "first comment", new Date(), new Date()));
-        deviceCommentRepository.save(new DeviceComment(2L, "second comment", new Date(), new Date()));
-
         //when
-        DeviceCommentDto commentDto = new DeviceCommentDto(null,"Comment content");
+        DeviceCommentDto commentDto = new DeviceCommentDto(1L,"Comment content",1L);
         MvcResult response = mockMvc.perform(post("/device-comment")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(commentDto)))
@@ -54,17 +52,31 @@ public class DeviceCommentTests {
 
         long commentId = Long.valueOf(response.getResponse().getContentAsString());
         assertTrue(deviceCommentRepository.findById(commentId).isPresent());
-        assertEquals(3L, commentId);
+        assertEquals(1L, commentId);
         assertEquals("Comment content", deviceCommentRepository.findById(commentId).get().getContent());
+    }
+
+    @Test
+    public void shouldNotAddCommentForInvalidDevice() throws Exception {
+        //when
+        DeviceCommentDto commentDto = new DeviceCommentDto(5L,"Comment content",2L);
+        mockMvc.perform(post("/device-comment")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(commentDto)))
+
+        //then
+                .andExpect(status().isUnprocessableEntity());
+
+        assertFalse(deviceCommentRepository.findById(5L).isPresent());
     }
 
     @Test
     public void shouldModifyComment() throws Exception {
         //given
-        deviceCommentRepository.save(new DeviceComment(1L, "fourth comment", new Date(), new Date()));
+        deviceCommentRepository.save(new DeviceComment(1L, "fourth comment", new Date(), new Date(),1));
 
         //when
-        DeviceCommentDto commentDto = new DeviceCommentDto(1L, "fourth comment modified");
+        DeviceCommentDto commentDto = new DeviceCommentDto(1L, "comment modified", 1L);
         MvcResult response = mockMvc.perform(put("/device-comment")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(commentDto)))
@@ -75,22 +87,22 @@ public class DeviceCommentTests {
 
         Optional<DeviceComment> modifiedComment = deviceCommentRepository.findById(1L);
         assertTrue(modifiedComment.isPresent());
-        assertEquals("fourth comment modified", modifiedComment.get().getContent());
+        assertEquals("comment modified", modifiedComment.get().getContent());
         assertNotEquals(modifiedComment.get().getCreationDate(), modifiedComment.get().getModificationDate());
     }
 
     @Test
     public void shouldDeleteComment() throws Exception {
         //given
-        deviceCommentRepository.save(new DeviceComment(1L, "device comment", new Date(), new Date()));
+        deviceCommentRepository.save(new DeviceComment(7L, "device comment", new Date(), new Date(),1L));
 
         //when
-        mockMvc.perform(delete("/device-comment/1"))
+        mockMvc.perform(delete("/device-comment/7"))
 
         //then
                 .andExpect(status().isOk());
 
-        assertFalse(deviceCommentRepository.findById(1L).isPresent());
+        assertFalse(deviceCommentRepository.findById(7L).isPresent());
 
     }
 

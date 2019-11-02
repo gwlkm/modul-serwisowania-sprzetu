@@ -4,8 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import maciejgawlik.modulserwisowaniasprzetu.devicecategory.DeviceCategory;
+import maciejgawlik.modulserwisowaniasprzetu.devicecomment.DeviceComment;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -14,7 +17,6 @@ import javax.persistence.*;
 public class Device {
 
     @Id
-    @GeneratedValue
     private Long id;
 
     private String name;
@@ -22,8 +24,26 @@ public class Device {
     @Setter
     private boolean isBroken;
 
+    @ManyToOne
+    @JoinColumn(name = "CATEGORY_NAME", insertable = false, updatable = false)
+    private DeviceCategory category;
+
+    @Column(name = "CATEGORY_NAME")
+    private String categoryName;
+
+    @OneToMany(mappedBy = "device")
+    List<DeviceComment> comments;
+
+    public Device(Long id, String name, boolean isBroken, String categoryName) {
+        this.id = id;
+        this.name = name;
+        this.isBroken = isBroken;
+        this.categoryName = categoryName;
+    }
+
     public Device(DeviceDto deviceDto){
         name = deviceDto.getName();
         isBroken = false;
+        category = deviceDto.getCategory();
     }
 }

@@ -1,12 +1,12 @@
 package maciejgawlik.modulserwisowaniasprzetu.devicecomment;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import maciejgawlik.modulserwisowaniasprzetu.device.domain.Device;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -17,7 +17,6 @@ import java.util.Date;
 public class DeviceComment {
 
     @Id
-    @GeneratedValue
     private Long id;
 
     @NotNull
@@ -27,11 +26,28 @@ public class DeviceComment {
 
     private Date modificationDate;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "DEVICE_ID", insertable = false, updatable = false)
+    @JsonIgnore
+    private Device device;
+
+    @Column(name = "DEVICE_ID")
+    private long deviceId;
+
     public DeviceComment(DeviceCommentDto commentDto) {
         id = commentDto.getId();
         content = commentDto.getContent();
         creationDate = new Date();
         modificationDate = new Date();
+        deviceId = commentDto.getDeviceId();
+    }
+
+    public DeviceComment(Long id, @NotNull String content, Date creationDate, Date modificationDate, long deviceId) {
+        this.id = id;
+        this.content = content;
+        this.creationDate = creationDate;
+        this.modificationDate = modificationDate;
+        this.deviceId = deviceId;
     }
 
     public DeviceComment update(DeviceCommentDto commentDto){

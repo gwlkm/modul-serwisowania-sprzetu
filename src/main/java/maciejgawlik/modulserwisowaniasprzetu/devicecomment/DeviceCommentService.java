@@ -1,6 +1,7 @@
 package maciejgawlik.modulserwisowaniasprzetu.devicecomment;
 
 import lombok.AllArgsConstructor;
+import maciejgawlik.modulserwisowaniasprzetu.device.domain.DeviceRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,9 +13,13 @@ import java.util.Optional;
 public class DeviceCommentService {
 
     private DeviceCommentRepository deviceCommentRepository;
+    private DeviceRepository deviceRepository;
 
     public ResponseEntity<Long> add(DeviceCommentDto commentDto) {
         DeviceComment comment = new DeviceComment(commentDto);
+        if (!deviceRepository.findById(commentDto.getDeviceId()).isPresent()){
+            return new ResponseEntity<>(-1L, HttpStatus.UNPROCESSABLE_ENTITY);
+        }
         Long id = deviceCommentRepository.save(comment).getId();
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }

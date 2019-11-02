@@ -1,12 +1,16 @@
 package maciejgawlik.modulserwisowaniasprzetu.devicecategory;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Data
 @Entity
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class DeviceCategory {
 
     @Id
