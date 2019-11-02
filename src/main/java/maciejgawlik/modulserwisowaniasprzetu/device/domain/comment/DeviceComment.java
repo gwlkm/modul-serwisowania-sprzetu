@@ -50,7 +50,7 @@ public class DeviceComment {
         this.deviceId = deviceId;
     }
 
-    public DeviceComment update(DeviceCommentDto commentDto){
+    public DeviceComment update(DeviceCommentDto commentDto) {
         content = commentDto.getContent();
         modificationDate = new Date();
         return this;

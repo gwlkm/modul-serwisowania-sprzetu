@@ -21,44 +21,39 @@ public class DeviceController {
     private DeviceCommentService deviceCommentService;
     private DeviceCategoryService deviceCategoryService;
 
-//    @PostMapping
-//    public ResponseEntity<Long> createDevice(@RequestBody DeviceDto deviceDto){
-//        return deviceService.add(deviceDto);
-//    }
-
     @GetMapping("/all")
-    public List<Device> getAllDevices(){
+    public List<Device> getAllDevices() {
         return deviceService.extractAll();
     }
 
     @PutMapping("/mark-as-broken/{id}")
-    public ResponseEntity<String> markAsBroken(@PathVariable("id") long id){
+    public ResponseEntity<String> markAsBroken(@PathVariable("id") long id) {
         return deviceService.markAsBroken(id);
     }
 
     @PutMapping("/mark-as-fixed/{id}")
-    public ResponseEntity<String> markAsFixed(@PathVariable("id") long id){
+    public ResponseEntity<String> markAsFixed(@PathVariable("id") long id) {
         return deviceService.markAsFixed(id);
     }
 
 
     @PostMapping("/comment")
-    public ResponseEntity<Long> addComment(@RequestBody DeviceCommentDto commentDto){
+    public ResponseEntity<Long> addComment(@RequestBody DeviceCommentDto commentDto) {
         return deviceCommentService.add(commentDto);
     }
 
     @PutMapping("/comment")
-    public ResponseEntity modifyComment(@RequestBody DeviceCommentDto commentDto){
+    public ResponseEntity modifyComment(@RequestBody DeviceCommentDto commentDto) {
         return deviceCommentService.update(commentDto);
     }
 
     @DeleteMapping("/comment/{id}")
-    public void deleteComment(@PathVariable("id") long id){
+    public void deleteComment(@PathVariable("id") long id) {
         deviceCommentService.delete(id);
     }
 
     @GetMapping("/category/all")
-    public List<DeviceCategory> addDevice(){
+    public List<DeviceCategory> addDevice() {
         return deviceCategoryService.extractAll();
     }
 

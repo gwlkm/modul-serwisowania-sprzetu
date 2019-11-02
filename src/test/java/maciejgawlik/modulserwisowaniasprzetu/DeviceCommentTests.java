@@ -40,7 +40,7 @@ public class DeviceCommentTests {
     @Test
     public void shouldAddComment() throws Exception {
         //when
-        DeviceCommentDto commentDto = new DeviceCommentDto(1L,"Comment content",1L);
+        DeviceCommentDto commentDto = new DeviceCommentDto(1L, "Comment content", 1L);
         MvcResult response = mockMvc.perform(post("/device/comment")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(commentDto)))
@@ -59,7 +59,7 @@ public class DeviceCommentTests {
     @Test
     public void shouldNotAddCommentForInvalidDevice() throws Exception {
         //when
-        DeviceCommentDto commentDto = new DeviceCommentDto(5L,"Comment content",2L);
+        DeviceCommentDto commentDto = new DeviceCommentDto(5L, "Comment content", 2L);
         mockMvc.perform(post("/device/comment")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(commentDto)))
@@ -73,7 +73,7 @@ public class DeviceCommentTests {
     @Test
     public void shouldModifyComment() throws Exception {
         //given
-        deviceCommentRepository.save(new DeviceComment(1L, "fourth comment", new Date(), new Date(),1));
+        deviceCommentRepository.save(new DeviceComment(1L, "fourth comment", new Date(), new Date(), 1));
 
         //when
         DeviceCommentDto commentDto = new DeviceCommentDto(1L, "comment modified", 1L);
@@ -94,7 +94,7 @@ public class DeviceCommentTests {
     @Test
     public void shouldDeleteComment() throws Exception {
         //given
-        deviceCommentRepository.save(new DeviceComment(7L, "device comment", new Date(), new Date(),1L));
+        deviceCommentRepository.save(new DeviceComment(7L, "device comment", new Date(), new Date(), 1L));
 
         //when
         mockMvc.perform(delete("/device/comment/7"))

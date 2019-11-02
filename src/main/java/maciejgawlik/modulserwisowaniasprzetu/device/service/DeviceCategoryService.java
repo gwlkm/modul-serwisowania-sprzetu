@@ -13,7 +13,7 @@ public class DeviceCategoryService {
 
     private DeviceCategoryRepository deviceCategoryRepository;
 
-    public List<DeviceCategory> extractAll(){
+    public List<DeviceCategory> extractAll() {
         return deviceCategoryRepository.findAll();
     }
 

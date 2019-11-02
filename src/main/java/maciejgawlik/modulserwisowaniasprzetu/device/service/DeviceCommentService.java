@@ -20,7 +20,7 @@ public class DeviceCommentService {
 
     public ResponseEntity<Long> add(DeviceCommentDto commentDto) {
         DeviceComment comment = new DeviceComment(commentDto);
-        if (!deviceRepository.findById(commentDto.getDeviceId()).isPresent()){
+        if (!deviceRepository.findById(commentDto.getDeviceId()).isPresent()) {
             return new ResponseEntity<>(-1L, HttpStatus.UNPROCESSABLE_ENTITY);
         }
         Long id = deviceCommentRepository.save(comment).getId();
@@ -29,7 +29,7 @@ public class DeviceCommentService {
 
     public ResponseEntity update(DeviceCommentDto commentDto) {
         Optional<DeviceComment> commentOptional = deviceCommentRepository.findById(commentDto.getId());
-        if (!commentOptional.isPresent()){
+        if (!commentOptional.isPresent()) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
 
