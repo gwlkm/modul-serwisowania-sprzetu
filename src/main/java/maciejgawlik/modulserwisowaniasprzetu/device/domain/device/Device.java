@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import maciejgawlik.modulserwisowaniasprzetu.device.domain.category.DeviceCategory;
 import maciejgawlik.modulserwisowaniasprzetu.device.domain.comment.DeviceComment;
+import maciejgawlik.modulserwisowaniasprzetu.device.domain.parameter.DeviceParameter;
 
 import javax.persistence.*;
 import java.util.List;
@@ -33,6 +34,9 @@ public class Device {
 
     @OneToMany(mappedBy = "device")
     List<DeviceComment> comments;
+
+    @OneToMany(mappedBy = "device")
+    List<DeviceParameter> parameters;
 
     public Device(Long id, String name, boolean isBroken, String categoryName) {
         this.id = id;
