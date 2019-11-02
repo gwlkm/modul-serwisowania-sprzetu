@@ -1,5 +1,6 @@
 package maciejgawlik.modulserwisowaniasprzetu.device.domain.device;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,7 @@ public class Device {
 
     @ManyToOne
     @JoinColumn(name = "CATEGORY_NAME", insertable = false, updatable = false)
+    @JsonIgnore
     private DeviceCategory category;
 
     @Column(name = "CATEGORY_NAME")

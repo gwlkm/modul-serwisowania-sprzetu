@@ -2,6 +2,7 @@ package maciejgawlik.modulserwisowaniasprzetu.device;
 
 import lombok.AllArgsConstructor;
 import maciejgawlik.modulserwisowaniasprzetu.device.domain.category.DeviceCategory;
+import maciejgawlik.modulserwisowaniasprzetu.device.domain.device.Device;
 import maciejgawlik.modulserwisowaniasprzetu.device.service.DeviceCategoryService;
 import maciejgawlik.modulserwisowaniasprzetu.device.domain.comment.DeviceCommentDto;
 import maciejgawlik.modulserwisowaniasprzetu.device.service.DeviceCommentService;
@@ -24,6 +25,11 @@ public class DeviceController {
 //    public ResponseEntity<Long> createDevice(@RequestBody DeviceDto deviceDto){
 //        return deviceService.add(deviceDto);
 //    }
+
+    @GetMapping("/all")
+    public List<Device> getAllDevices(){
+        return deviceService.extractAll();
+    }
 
     @PutMapping("/mark-as-broken/{id}")
     public ResponseEntity<String> markAsBroken(@PathVariable("id") long id){

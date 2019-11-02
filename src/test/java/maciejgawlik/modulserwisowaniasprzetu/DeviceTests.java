@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Sql(scripts = "classpath:device-tests.sql")
+@Sql(scripts = "classpath:sql/device-tests.sql")
 public class DeviceTests {
 
     @Autowired

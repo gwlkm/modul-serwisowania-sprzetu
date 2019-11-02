@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Sql(scripts = "classpath:comment-tests.sql")
+@Sql(scripts = "classpath:sql/comment-tests.sql")
 public class DeviceCommentTests {
 
     @Autowired
