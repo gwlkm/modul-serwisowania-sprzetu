@@ -47,9 +47,4 @@ public class Device {
         this.categoryName = categoryName;
     }
 
-    public Device(DeviceDto deviceDto) {
-        name = deviceDto.getName();
-        isBroken = false;
-        category = deviceDto.getCategory();
-    }
 }
