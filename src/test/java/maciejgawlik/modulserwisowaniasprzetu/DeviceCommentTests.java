@@ -1,9 +1,9 @@
 package maciejgawlik.modulserwisowaniasprzetu;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import maciejgawlik.modulserwisowaniasprzetu.devicecomment.DeviceComment;
-import maciejgawlik.modulserwisowaniasprzetu.devicecomment.DeviceCommentDto;
-import maciejgawlik.modulserwisowaniasprzetu.devicecomment.DeviceCommentRepository;
+import maciejgawlik.modulserwisowaniasprzetu.device.domain.comment.DeviceComment;
+import maciejgawlik.modulserwisowaniasprzetu.device.domain.comment.DeviceCommentDto;
+import maciejgawlik.modulserwisowaniasprzetu.device.domain.comment.DeviceCommentRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -41,7 +41,7 @@ public class DeviceCommentTests {
     public void shouldAddComment() throws Exception {
         //when
         DeviceCommentDto commentDto = new DeviceCommentDto(1L,"Comment content",1L);
-        MvcResult response = mockMvc.perform(post("/device-comment")
+        MvcResult response = mockMvc.perform(post("/device/comment")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(commentDto)))
                 .andReturn();
@@ -60,7 +60,7 @@ public class DeviceCommentTests {
     public void shouldNotAddCommentForInvalidDevice() throws Exception {
         //when
         DeviceCommentDto commentDto = new DeviceCommentDto(5L,"Comment content",2L);
-        mockMvc.perform(post("/device-comment")
+        mockMvc.perform(post("/device/comment")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(commentDto)))
 
@@ -77,7 +77,7 @@ public class DeviceCommentTests {
 
         //when
         DeviceCommentDto commentDto = new DeviceCommentDto(1L, "comment modified", 1L);
-        MvcResult response = mockMvc.perform(put("/device-comment")
+        MvcResult response = mockMvc.perform(put("/device/comment")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(commentDto)))
                 .andReturn();
@@ -97,7 +97,7 @@ public class DeviceCommentTests {
         deviceCommentRepository.save(new DeviceComment(7L, "device comment", new Date(), new Date(),1L));
 
         //when
-        mockMvc.perform(delete("/device-comment/7"))
+        mockMvc.perform(delete("/device/comment/7"))
 
         //then
                 .andExpect(status().isOk());

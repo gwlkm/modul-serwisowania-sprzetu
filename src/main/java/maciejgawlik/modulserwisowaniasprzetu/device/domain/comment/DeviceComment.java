@@ -1,10 +1,10 @@
-package maciejgawlik.modulserwisowaniasprzetu.devicecomment;
+package maciejgawlik.modulserwisowaniasprzetu.device.domain.comment;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import maciejgawlik.modulserwisowaniasprzetu.device.domain.Device;
+import maciejgawlik.modulserwisowaniasprzetu.device.domain.device.Device;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

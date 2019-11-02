@@ -1,9 +1,9 @@
 package maciejgawlik.modulserwisowaniasprzetu.device.service;
 
 import lombok.AllArgsConstructor;
-import maciejgawlik.modulserwisowaniasprzetu.device.domain.Device;
-import maciejgawlik.modulserwisowaniasprzetu.device.domain.DeviceDto;
-import maciejgawlik.modulserwisowaniasprzetu.device.domain.DeviceRepository;
+import maciejgawlik.modulserwisowaniasprzetu.device.domain.device.Device;
+import maciejgawlik.modulserwisowaniasprzetu.device.domain.device.DeviceDto;
+import maciejgawlik.modulserwisowaniasprzetu.device.domain.device.DeviceRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

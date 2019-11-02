@@ -1,9 +1,9 @@
-package maciejgawlik.modulserwisowaniasprzetu.device.domain;
+package maciejgawlik.modulserwisowaniasprzetu.device.domain.device;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import maciejgawlik.modulserwisowaniasprzetu.devicecategory.DeviceCategory;
+import maciejgawlik.modulserwisowaniasprzetu.device.domain.category.DeviceCategory;
 
 import javax.validation.constraints.NotNull;
 

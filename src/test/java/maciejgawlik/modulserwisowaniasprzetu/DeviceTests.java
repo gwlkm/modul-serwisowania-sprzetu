@@ -1,23 +1,14 @@
 package maciejgawlik.modulserwisowaniasprzetu;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import maciejgawlik.modulserwisowaniasprzetu.device.domain.Device;
-import maciejgawlik.modulserwisowaniasprzetu.device.domain.DeviceDto;
-import maciejgawlik.modulserwisowaniasprzetu.device.domain.DeviceRepository;
-import maciejgawlik.modulserwisowaniasprzetu.devicecategory.DeviceCategory;
-import org.aspectj.lang.annotation.Before;
-import org.h2.tools.Server;
+import maciejgawlik.modulserwisowaniasprzetu.device.domain.device.Device;
+import maciejgawlik.modulserwisowaniasprzetu.device.domain.device.DeviceRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-
-import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

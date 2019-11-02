@@ -1,4 +1,4 @@
-package maciejgawlik.modulserwisowaniasprzetu.devicecomment;
+package maciejgawlik.modulserwisowaniasprzetu.device.domain.comment;
 
 import lombok.*;
 

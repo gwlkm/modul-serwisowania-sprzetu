@@ -1,11 +1,11 @@
-package maciejgawlik.modulserwisowaniasprzetu.device.domain;
+package maciejgawlik.modulserwisowaniasprzetu.device.domain.device;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import maciejgawlik.modulserwisowaniasprzetu.devicecategory.DeviceCategory;
-import maciejgawlik.modulserwisowaniasprzetu.devicecomment.DeviceComment;
+import maciejgawlik.modulserwisowaniasprzetu.device.domain.category.DeviceCategory;
+import maciejgawlik.modulserwisowaniasprzetu.device.domain.comment.DeviceComment;
 
 import javax.persistence.*;
 import java.util.List;

@@ -1,4 +1,4 @@
-package maciejgawlik.modulserwisowaniasprzetu.devicecategory;
+package maciejgawlik.modulserwisowaniasprzetu.device.domain.category;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

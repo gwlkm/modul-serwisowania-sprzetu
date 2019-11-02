@@ -1,7 +1,10 @@
-package maciejgawlik.modulserwisowaniasprzetu.devicecomment;
+package maciejgawlik.modulserwisowaniasprzetu.device.service;
 
 import lombok.AllArgsConstructor;
-import maciejgawlik.modulserwisowaniasprzetu.device.domain.DeviceRepository;
+import maciejgawlik.modulserwisowaniasprzetu.device.domain.comment.DeviceComment;
+import maciejgawlik.modulserwisowaniasprzetu.device.domain.comment.DeviceCommentDto;
+import maciejgawlik.modulserwisowaniasprzetu.device.domain.comment.DeviceCommentRepository;
+import maciejgawlik.modulserwisowaniasprzetu.device.domain.device.DeviceRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
