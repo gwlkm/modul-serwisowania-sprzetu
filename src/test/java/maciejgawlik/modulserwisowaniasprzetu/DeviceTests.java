@@ -14,8 +14,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -33,14 +36,14 @@ public class DeviceTests {
     @Test
     public void shouldAddDevice() throws Exception {
         //given
-        deviceRepository.save(new Device(1L, "first device"));
-        deviceRepository.save(new Device(2L, "second device"));
+        deviceRepository.save(new Device(1L, "first device", false));
+        deviceRepository.save(new Device(2L, "second device", false));
 
         //when
-        DeviceDto commentDto = new DeviceDto(null,"new device");
+        DeviceDto deviceDto = new DeviceDto(null,"new device");
         MvcResult response = mockMvc.perform(post("/device")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(commentDto)))
+                .content(objectMapper.writeValueAsString(deviceDto)))
                 .andReturn();
 
         //then
@@ -51,6 +54,54 @@ public class DeviceTests {
         assertTrue(deviceRepository.findById(commentId).isPresent());
         assertEquals(3L, commentId);
         assertEquals("new device", deviceRepository.findById(commentId).get().getName());
+    }
+
+    @Test
+    public void shouldMarkAsBroken() throws Exception {
+        //given
+        deviceRepository.save(new Device(1L, "first device", false));
+
+        //when
+        mockMvc.perform(put("/device/mark-as-broken/1"))
+
+        //then
+                .andExpect(status().isOk());
+
+        assertTrue(deviceRepository.findById(1L).isPresent());
+        assertTrue(deviceRepository.findById(1L).get().isBroken());
+    }
+
+    @Test
+    public void shouldNotFoundWhenMarkAsBroken() throws Exception {
+        //when
+        mockMvc.perform(put("/device/mark-as-broken/11"))
+
+        //then
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void shouldMarkAsFixed() throws Exception {
+        //given
+        deviceRepository.save(new Device(1L, "first device", true));
+
+        //when
+        mockMvc.perform(put("/device/mark-as-fixed/1"))
+
+        //then
+                .andExpect(status().isOk());
+
+        assertTrue(deviceRepository.findById(1L).isPresent());
+        assertFalse(deviceRepository.findById(1L).get().isBroken());
+    }
+
+    @Test
+    public void shouldNotFoundWhenMarkAsFixed() throws Exception {
+        //when
+        mockMvc.perform(put("/device/mark-as-fixed/11"))
+
+        //then
+                .andExpect(status().isNotFound());
     }
 
 }

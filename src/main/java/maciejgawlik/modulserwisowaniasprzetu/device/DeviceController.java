@@ -18,4 +18,14 @@ public class DeviceController {
         return deviceService.add(deviceDto);
     }
 
+    @PutMapping("/mark-as-broken/{id}")
+    public ResponseEntity<String> markAsBroken(@PathVariable("id") long id){
+        return deviceService.markAsBroken(id);
+    }
+
+    @PutMapping("/mark-as-fixed/{id}")
+    public ResponseEntity<String> markAsFixed(@PathVariable("id") long id){
+        return deviceService.markAsFixed(id);
+    }
+
 }
