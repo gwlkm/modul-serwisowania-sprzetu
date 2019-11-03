@@ -57,42 +57,42 @@ public class AuthenticationTests {
     @WithAnonymousUser
     public void anonymousUserCannotUseAnyMethod() throws Exception {
         //when
-        Map<String, Integer> responseMap = createResponseMap();
+        Map<String, Integer> responseStatusPerMethod = createMapOfResponseStatusPerMethod();
 
         //then
-        assertEquals(HttpStatus.UNAUTHORIZED.value(), responseMap.get("GET"));
-        assertEquals(HttpStatus.UNAUTHORIZED.value(), responseMap.get("POST"));
-        assertEquals(HttpStatus.UNAUTHORIZED.value(), responseMap.get("PUT"));
-        assertEquals(HttpStatus.UNAUTHORIZED.value(), responseMap.get("DELETE"));
+        assertEquals(HttpStatus.UNAUTHORIZED.value(), responseStatusPerMethod.get("GET"));
+        assertEquals(HttpStatus.UNAUTHORIZED.value(), responseStatusPerMethod.get("POST"));
+        assertEquals(HttpStatus.UNAUTHORIZED.value(), responseStatusPerMethod.get("PUT"));
+        assertEquals(HttpStatus.UNAUTHORIZED.value(), responseStatusPerMethod.get("DELETE"));
     }
 
     @Test
     @WithMockUser(roles = "USER")
     public void loggedUserCanUseOnlyGetAndPost() throws Exception {
         //when
-        Map<String, Integer> responseMap = createResponseMap();
+        Map<String, Integer> responseStatusPerMethod = createMapOfResponseStatusPerMethod();
 
         //then
-        assertEquals(HttpStatus.OK.value(), responseMap.get("GET"));
-        assertEquals(HttpStatus.CREATED.value(), responseMap.get("POST"));
-        assertEquals(HttpStatus.FORBIDDEN.value(), responseMap.get("PUT"));
-        assertEquals(HttpStatus.FORBIDDEN.value(), responseMap.get("DELETE"));
+        assertEquals(HttpStatus.OK.value(), responseStatusPerMethod.get("GET"));
+        assertEquals(HttpStatus.CREATED.value(), responseStatusPerMethod.get("POST"));
+        assertEquals(HttpStatus.FORBIDDEN.value(), responseStatusPerMethod.get("PUT"));
+        assertEquals(HttpStatus.FORBIDDEN.value(), responseStatusPerMethod.get("DELETE"));
     }
 
     @Test
     @WithMockUser(roles = {"USER","ADMIN"})
     public void adminCanUseAllMethods() throws Exception {
         //when
-        Map<String, Integer> responseMap = createResponseMap();
+        Map<String, Integer> responseStatusPerMethod = createMapOfResponseStatusPerMethod();
 
         //then
-        assertEquals(HttpStatus.OK.value(), responseMap.get("GET"));
-        assertEquals(HttpStatus.CREATED.value(), responseMap.get("POST"));
-        assertEquals(HttpStatus.CREATED.value(), responseMap.get("PUT"));
-        assertEquals(HttpStatus.OK.value(), responseMap.get("DELETE"));
+        assertEquals(HttpStatus.OK.value(), responseStatusPerMethod.get("GET"));
+        assertEquals(HttpStatus.CREATED.value(), responseStatusPerMethod.get("POST"));
+        assertEquals(HttpStatus.CREATED.value(), responseStatusPerMethod.get("PUT"));
+        assertEquals(HttpStatus.OK.value(), responseStatusPerMethod.get("DELETE"));
     }
 
-    private Map<String, Integer> createResponseMap() throws Exception {
+    private Map<String, Integer> createMapOfResponseStatusPerMethod() throws Exception {
         return new HashMap<String, Integer>() {{
             put("GET", getResponseStatus(GET_REQUEST));
             put("POST", getResponseStatus(POST_REQUEST));

@@ -17,12 +17,14 @@ import java.util.List;
 @RequestMapping("/device")
 public class DeviceController {
 
+
     private DeviceService deviceService;
     private DeviceCommentService deviceCommentService;
     private DeviceCategoryService deviceCategoryService;
 
+
     @GetMapping("/all")
-    public List<Device> getAllDevices() {
+    public List<Device> extractAllDevices() {
         return deviceService.extractAll();
     }
 
@@ -52,8 +54,9 @@ public class DeviceController {
         deviceCommentService.delete(id);
     }
 
+
     @GetMapping("/category/all")
-    public List<DeviceCategory> addDevice() {
+    public List<DeviceCategory> extractAllCategories() {
         return deviceCategoryService.extractAll();
     }
 

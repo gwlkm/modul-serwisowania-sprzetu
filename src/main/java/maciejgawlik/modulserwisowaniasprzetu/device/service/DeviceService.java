@@ -32,7 +32,7 @@ public class DeviceService {
         Device device = deviceOptional.get();
         device.setBroken(markAsBroken);
         deviceRepository.save(device);
-        return new ResponseEntity<>("Device added", HttpStatus.OK);
+        return new ResponseEntity<>("Device modified", HttpStatus.OK);
     }
 
     public List<Device> extractAll() {
